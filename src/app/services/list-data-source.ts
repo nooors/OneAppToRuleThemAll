@@ -2,7 +2,7 @@ import { CharactersService } from "./characters.service";
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, finalize, Observable, of } from "rxjs";
-import { Character } from "../models/characters";
+import { Character, Doc } from "../models/characters";
 
 @Injectable({
   providedIn: "root",
@@ -15,7 +15,7 @@ export class ListDataSource implements DataSource<Character> {
 
   constructor(private charactersService: CharactersService) {}
 
-  connect(collectionViewer: CollectionViewer): Observable<Character> {
+  connect(collectionViewer: CollectionViewer): Observable<Doc[]> {
     return this.listSubject.asObservable();
   }
 
