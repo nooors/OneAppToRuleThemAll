@@ -1,5 +1,6 @@
 import { CharactersService } from "./../../../services/characters.service";
 import { Component, OnInit } from "@angular/core";
+import { Doc } from "src/app/models/characters";
 
 @Component({
   selector: "app-list",
@@ -7,7 +8,8 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./list.component.scss"],
 })
 export class ListComponent implements OnInit {
-  characters: any;
+  displayedColumns = ["name", "race", "gender", "hair", "realm", "spouse"];
+  characters!: Doc[];
 
   /**
    * @constructor
@@ -16,9 +18,13 @@ export class ListComponent implements OnInit {
   constructor(private httpService: CharactersService) {}
 
   ngOnInit(): void {
-    const cahrater = this.httpService.getCaracter().subscribe((res) => {
+    this.httpService.getCharacters().subscribe((res) => {
       console.log(res);
       this.characters = res;
     });
+  }
+
+  onRowClicked(row: any) {
+    console.log(row);
   }
 }

@@ -1,6 +1,73 @@
-<h1>Characters</h1>
-<!-- <pre>
-  <code>
-    {{ characters | json }}
-  </code>
-</pre> -->
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center mt-5">Characters</h1>
+      <!-- <pre>
+        <code>
+          {{ characters | json }}
+        </code>
+      </pre> -->
+    </div>
+    <!-- Table Begins -->
+    <div class="row">
+      <div class="col">
+        <ng-container *ngIf="characters">
+          <mat-table
+            class="characters-table mat-elevation-z8"
+            [dataSource]="characters"
+          >
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+              <mat-cell *matCellDef="let character"
+                >{{ character.name }}</mat-cell
+              >
+            </ng-container>
+
+            <ng-container matColumnDef="race">
+              <mat-header-cell *matHeaderCellDef>Race</mat-header-cell>
+              <mat-cell *matCellDef="let character"
+                >{{ character.race }}</mat-cell
+              >
+            </ng-container>
+
+            <ng-container matColumnDef="gender">
+              <mat-header-cell *matHeaderCellDef>Gender</mat-header-cell>
+              <mat-cell *matCellDef="let character"
+                >{{ character.gender }}</mat-cell
+              >
+            </ng-container>
+
+            <ng-container matColumnDef="hair">
+              <mat-header-cell *matHeaderCellDef>Hair</mat-header-cell>
+              <mat-cell *matCellDef="let character"
+                >{{ character.hair }}</mat-cell
+              >
+            </ng-container>
+
+            <ng-container matColumnDef="realm">
+              <mat-header-cell *matHeaderCellDef>Realm</mat-header-cell>
+              <mat-cell *matCellDef="let character"
+                >{{ character.realm }}</mat-cell
+              >
+            </ng-container>
+
+            <ng-container matColumnDef="spouse">
+              <mat-header-cell *matHeaderCellDef>Spouse</mat-header-cell>
+              <mat-cell *matCellDef="let character"
+                >{{ character.spouse }}</mat-cell
+              >
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="onRowClicked(row)"
+            ></mat-row>
+          </mat-table>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,8 @@
+import { Character, Doc } from "./../models/characters";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { ACCES_TOKEN, BASE_URL } from "../../environments/environment";
+import { map, Observable } from "rxjs";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -10,7 +11,7 @@ export class CharactersService {
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: `Bearer ${ACCES_TOKEN}`,
+      Authorization: `Bearer ${environment.ACCES_TOKEN}`,
     }),
     params: new HttpParams().set("limit", 10),
   };
@@ -21,10 +22,9 @@ export class CharactersService {
    */
   constructor(private http: HttpClient) {}
 
-  getCaracter() {
-    return this.http.get<Observable<any>>(
-      `${BASE_URL}/character`,
-      this.httpOptions,
-    );
+  getCharacters(): Observable<Doc[]> {
+    return this.http
+      .get<Character>(`${environment.BASE_URL}/character`, this.httpOptions)
+      .pipe(map((res) => res.docs));
   }
 }
