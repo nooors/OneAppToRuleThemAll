@@ -1,6 +1,5 @@
 import { CharactersService } from "./../../../services/characters.service";
 import { Component, OnInit } from "@angular/core";
-import { Doc } from "src/app/models/characters";
 
 @Component({
   selector: "app-list",
@@ -9,7 +8,8 @@ import { Doc } from "src/app/models/characters";
 })
 export class ListComponent implements OnInit {
   displayedColumns = ["name", "race", "gender", "hair", "realm", "spouse"];
-  characters!: Doc[];
+  characters: any;
+  dataSource: any;
 
   /**
    * @constructor
@@ -19,8 +19,9 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.httpService.getCharacters().subscribe((res) => {
-      console.log(res);
+      console.log("PACHA", res);
       this.characters = res;
+      this.dataSource = res.docs;
     });
   }
 

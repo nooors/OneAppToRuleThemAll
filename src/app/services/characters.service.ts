@@ -16,15 +16,30 @@ export class CharactersService {
     params: new HttpParams().set("limit", 10),
   };
 
+  httpOptions2 = {
+    headers: new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${environment.ACCES_TOKEN}`,
+    }),
+    params: new HttpParams().set("limit", 10).set("page", 2),
+  };
+
   /**
    * @constructor
    * @param http
    */
   constructor(private http: HttpClient) {}
 
-  getCharacters(): Observable<Doc[]> {
-    return this.http
-      .get<Character>(`${environment.BASE_URL}/character`, this.httpOptions)
-      .pipe(map((res) => res.docs));
+  getCharacters(): Observable<Character> {
+    return this.http.get<Character>(
+      `${environment.BASE_URL}/character`,
+      this.httpOptions,
+    );
+  }
+  goPage2(): Observable<Character> {
+    return this.http.get<Character>(
+      `${environment.BASE_URL}/character`,
+      this.httpOptions2,
+    );
   }
 }

@@ -13,10 +13,10 @@ export interface Doc {
 }
 
 export interface Character {
-  docs: Doc[];
-  total: number;
-  limit: number;
-  offset: number;
-  page: number;
-  pages: number;
+  docs?: Doc[];
+  limit?: number;
+  offset?: number;
+  page?: number;
+  pages?: number;
+  total?: number;
 }
