@@ -1,5 +1,6 @@
 import { CharactersService } from "./../../../services/characters.service";
 import { Component, OnInit } from "@angular/core";
+import { ListDataSource } from "src/app/services/list-data-source";
 
 @Component({
   selector: "app-list",
@@ -8,8 +9,8 @@ import { Component, OnInit } from "@angular/core";
 })
 export class ListComponent implements OnInit {
   displayedColumns = ["name", "race", "gender", "hair", "realm", "spouse"];
-  characters: any;
-  dataSource: any;
+
+  dataSource!: ListDataSource;
 
   /**
    * @constructor
@@ -18,11 +19,8 @@ export class ListComponent implements OnInit {
   constructor(private httpService: CharactersService) {}
 
   ngOnInit(): void {
-    this.httpService.getCharacters().subscribe((res) => {
-      console.log("PACHA", res);
-      this.characters = res;
-      this.dataSource = res.docs;
-    });
+    this.dataSource = new ListDataSource(this.httpService);
+    this.dataSource.loadCharacters();
   }
 
   onRowClicked(row: any) {

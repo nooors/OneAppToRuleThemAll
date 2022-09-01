@@ -2,13 +2,13 @@ import { CharactersService } from "./characters.service";
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, finalize, Observable, of } from "rxjs";
-import { Character, Doc } from "../models/characters";
+import { Doc } from "../models/characters";
 
 @Injectable({
   providedIn: "root",
 })
-export class ListDataSource implements DataSource<Character> {
-  private listSubject = new BehaviorSubject<Character>({});
+export class ListDataSource implements DataSource<Doc> {
+  private listSubject = new BehaviorSubject<Doc[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   public loading$ = this.loadingSubject.asObservable();
@@ -33,6 +33,6 @@ export class ListDataSource implements DataSource<Character> {
         catchError(() => of([])),
         finalize(() => this.loadingSubject.next(false)),
       )
-      .subscribe((characters) => this.listSubject.next(characters));
+      .subscribe((characters) => this.listSubject.next(characters!));
   }
 }

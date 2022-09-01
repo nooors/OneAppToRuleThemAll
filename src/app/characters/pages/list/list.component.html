@@ -11,12 +11,6 @@
     <!-- Table Begins -->
     <div class="row">
       <div class="col">
-        <div
-          class="spinner-container text-center"
-          *ngIf="dataSource.loading$ | async"
-        >
-          <mat-spinner></mat-spinner>
-        </div>
         <mat-table
           class="characters-table mat-elevation-z8"
           [dataSource]="dataSource"
@@ -69,11 +63,12 @@
             (click)="onRowClicked(row)"
           ></mat-row>
         </mat-table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col float-end">
-        <button class="btn btn-primary">Page 2</button>
+        <div
+          class="spinner-container d-flex justify-content-center mt-5"
+          *ngIf="dataSource.loading$ | async"
+        >
+          <mat-spinner></mat-spinner>
+        </div>
       </div>
     </div>
   </div>

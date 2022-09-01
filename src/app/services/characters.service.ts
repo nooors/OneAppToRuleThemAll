@@ -1,5 +1,5 @@
 import { Character, Doc } from "./../models/characters";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { environment } from "../../environments/environment";
@@ -8,38 +8,25 @@ import { environment } from "../../environments/environment";
   providedIn: "root",
 })
 export class CharactersService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${environment.ACCES_TOKEN}`,
-    }),
-    params: new HttpParams().set("limit", 10),
-  };
-
-  httpOptions2 = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${environment.ACCES_TOKEN}`,
-    }),
-    params: new HttpParams().set("limit", 10).set("page", 2),
-  };
-
   /**
    * @constructor
    * @param http
    */
   constructor(private http: HttpClient) {}
 
-  getCharacters(): Observable<Character> {
-    return this.http.get<Character>(
-      `${environment.BASE_URL}/character`,
-      this.httpOptions,
-    );
+  getCharacters(
+    page: number = 1,
+    limit: number = 10,
+  ): Observable<Doc[] | undefined> {
+    return this.http
+      .get<Character>(`${environment.BASE_URL}/character`, {
+        params: new HttpParams()
+          .set("page", page.toString())
+          .set("limit", limit.toString()),
+      })
+      .pipe(map((res) => res.docs));
   }
   goPage2(): Observable<Character> {
-    return this.http.get<Character>(
-      `${environment.BASE_URL}/character`,
-      this.httpOptions2,
-    );
+    return this.http.get<Character>(`${environment.BASE_URL}/character`);
   }
 }
