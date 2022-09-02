@@ -24,11 +24,11 @@ export class ListDataSource implements DataSource<Doc> {
     this.loadingSubject.complete();
   }
 
-  loadCharacters() {
+  loadCharacters(page: number = 1, limit: number = 10) {
     this.loadingSubject.next(true);
 
     this.charactersService
-      .getCharacters()
+      .getCharacters(page, limit)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject.next(false)),
