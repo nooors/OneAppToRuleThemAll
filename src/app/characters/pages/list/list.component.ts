@@ -14,11 +14,14 @@ import { tap } from 'rxjs/operators';
 export class ListComponent implements OnInit, AfterViewInit {
   character!: Character;
   dataSource!: ListDataSource;
+  dataSourcedataSet!: Character;
   displayedColumns = ['name', 'race', 'gender', 'hair', 'realm', 'spouse'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   /**
+   * Class constructor
+   *
    * @constructor
    * @param httpService
    */
@@ -38,7 +41,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   loadCharactersPage() {
-    this.dataSource.loadCharacters(this.character);
+    this.dataSource.loadCharacters(this.character.page);
   }
   onRowClicked(row: any) {
     console.log(row);

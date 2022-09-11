@@ -1,11 +1,11 @@
-import { CharactersService } from "./characters.service";
-import { CollectionViewer, DataSource } from "@angular/cdk/collections";
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, catchError, finalize, Observable, of } from "rxjs";
-import { Doc } from "../models/characters";
+import { CharactersService } from './characters.service';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, catchError, finalize, Observable, of } from 'rxjs';
+import { Doc } from '../models/characters';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class ListDataSource implements DataSource<Doc> {
   private listSubject = new BehaviorSubject<Doc[]>([]);
@@ -31,7 +31,7 @@ export class ListDataSource implements DataSource<Doc> {
       .getCharacters(page, limit)
       .pipe(
         catchError(() => of([])),
-        finalize(() => this.loadingSubject.next(false)),
+        finalize(() => this.loadingSubject.next(false))
       )
       .subscribe((characters) => this.listSubject.next(characters!));
   }
